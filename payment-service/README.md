@@ -1,4 +1,4 @@
-# Payment and Notification Services
+# Payment and NotificationEntity Services
 
 ## Como rodar o projeto
 
