@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { connectDatabase } from './database';
 import { receiveMessages } from './queues/payment.queue';
 

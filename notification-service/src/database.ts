@@ -1,5 +1,4 @@
 import { createConnection } from 'typeorm';
-import { NotificationEntity } from './entities/notification.entity';
 
 export const connectDatabase = async () => {
   await createConnection({
@@ -9,7 +8,7 @@ export const connectDatabase = async () => {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    entities: [NotificationEntity],
+    entities: [__dirname + '/entities/*{.ts,.js}'],
     synchronize: true,
   });
   console.log('Connected to the database');

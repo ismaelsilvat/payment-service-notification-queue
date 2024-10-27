@@ -1,4 +1,3 @@
-version: '3'
 services:
   rabbitmq:
     image: 'rabbitmq:3-management'
@@ -8,6 +7,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - app-network
 
   postgres:
     image: 'postgres'
@@ -17,6 +18,8 @@ services:
       POSTGRES_DB: mydb
     ports:
       - '5432:5432'
+    networks:
+      - app-network
 
   payment-service:
     build: ./payment-service
@@ -34,6 +37,9 @@ services:
     ports:
       - "3000:3000"
     command: npm run start
+    networks:
+      - app-network
+    restart: unless-stopped
 
   notification-service:
     build: ./notification-service
@@ -43,11 +49,19 @@ services:
       - DB_PORT=5432
       - DB_USER=myuser
       - DB_PASS=mypassword
-      - DB_NAME=notifications
+      - DB_NAME=mydb
       - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
     depends_on:
       - postgres
       - rabbitmq
+      - payment-service
     ports:
       - "3001:3001"
     command: npm run start
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,3 +1,5 @@
 payment-service/node_modules
 notification-service/node_modules
+notification-service/dist
+payment-service/dist
 .idea

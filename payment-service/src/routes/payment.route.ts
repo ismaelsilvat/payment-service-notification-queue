@@ -20,4 +20,14 @@ Router.post("/payments", async (req: PostPaymentRequest, res: Response) => {
   }
 })
 
+Router.post("/payments/:id", async (req: PostPaymentRequest, res: Response) => {
+  const { id } = req.params;
+  try {
+    const payment = await PaymentService.approvePayment({ id: parseInt(id) });
+    res.status(201).json(payment);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+})
+
 export default Router

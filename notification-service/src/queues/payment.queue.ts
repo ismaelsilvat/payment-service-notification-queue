@@ -7,7 +7,7 @@ export const receiveMessages = async () => {
 
   await channel.assertQueue('payment_created');
 
-  channel.consume('payment_created', async (message) => {
+  await channel.consume('payment_created', async (message) => {
     if (message) {
       const paymentData = JSON.parse(message.content.toString());
       console.log('Received payment message:', paymentData);
@@ -16,6 +16,21 @@ export const receiveMessages = async () => {
         userId: paymentData.userId,
         paymentId: paymentData.paymentId,
         message: `Payment of ${paymentData.amount} has been processed.`,
+      });
+
+      channel.ack(message);
+    }
+  });
+
+  await channel.consume('payment_approved', async (message) => {
+    if (message) {
+      const paymentData = JSON.parse(message.content.toString());
+      console.log('Received payment message:', paymentData);
+
+      await NotificationService.sendNotification({
+        userId: paymentData.userId,
+        paymentId: paymentData.paymentId,
+        message: `Payment of ${paymentData.amount} has been approved.`,
       });
 
       channel.ack(message);

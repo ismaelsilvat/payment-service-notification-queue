@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { NotificationEntity } from '../entities/notification.entity';
+import { Notification } from '../entities/notification.entity';
 
 interface NotificationData {
   userId: number;
@@ -9,7 +9,7 @@ interface NotificationData {
 
 export class NotificationService {
   static async sendNotification({ userId, paymentId, message }: NotificationData) {
-    const notificationRepository = getRepository(NotificationEntity);
+    const notificationRepository = getRepository(Notification);
 
     const notification = notificationRepository.create({
       userId,

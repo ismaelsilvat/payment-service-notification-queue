@@ -22,4 +22,25 @@ export class PaymentService {
 
     return payment;
   }
+
+  static async approvePayment({ id }: { id: number }) {
+    const paymentRepository = getRepository(Payment);
+
+    const payment = await paymentRepository.findOne(id);
+
+    if (!payment) {
+      throw new Error(`Payment with id ${id} not found`);
+    }
+
+    payment.status = 'SUCCEEDED';
+    const updatedPayment = await paymentRepository.save(payment);
+
+    await sendToQueue('payment_approved', {
+      paymentId: updatedPayment.id,
+      userId: updatedPayment.userId,
+      amount: updatedPayment.amount
+    });
+
+    return updatedPayment;
+  }
 }
