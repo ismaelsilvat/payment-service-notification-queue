@@ -69,7 +69,6 @@ O PostgreSQL pode ser acessado diretamente para consultar ou manipular dados. Pa
 docker exec -it challenge-02-postgres-1 psql -U myuser -d mydb (possivelmente você terá que substituir o nome do container pelo que foi exibido no comando docker ps, no passo 3.)
 Dentro do console do psql, você pode executar comandos SQL como:
 
-sql
 SELECT * FROM payment;
 SELECT * FROM notification;
 
