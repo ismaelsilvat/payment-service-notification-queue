@@ -41,12 +41,33 @@ CONTAINER ID   IMAGE                           COMMAND                  CREATED 
 77f34e9f23d3   postgres                        "docker-entrypoint.s…"   2 minutes ago  Up 2 minutes  0.0.0.0:5432->5432/tcp             postgres
 
 
-### 4. Testando a aplicação
+Aqui está uma versão aprimorada do texto:
 
+---
+
+### 4. Teste da aplicação
+
+Você pode testar a aplicação utilizando ferramentas como Postman ou Insomnia, enviando o seguinte payload para o endpoint:
+
+Endpoint: `http://localhost:3000/payments`  
+Payload:
+```json
+{
+  "userId": 1,
+  "amount": 100.00
+}
+```
+
+Alternativamente, você pode usar o comando `curl` para executar a requisição diretamente via linha de comando:
+
+```bash
 curl -X POST http://localhost:3000/payments -H "Content-Type: application/json" -d '{
-"userId": 1,
-"amount": 100.00
+  "userId": 1,
+  "amount": 100.00
 }'
+```
+
+---
 
 ### 5. Testando o notification-service
 O notification-service escuta eventos da fila do RabbitMQ e envia notificações. Certifique-se de que ele está funcionando corretamente verificando os logs do contêiner:
