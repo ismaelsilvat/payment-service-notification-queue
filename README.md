@@ -34,14 +34,13 @@ notification-service: http://localhost:3001 (não contém resposta pois não se 
 docker ps
 
 Você deve ver algo como:
+``` 
 CONTAINER ID   IMAGE                           COMMAND                  CREATED        STATUS        PORTS                              NAMES
 1f4a678b1c63   notification-service            "docker-entrypoint.s…"   2 minutes ago  Up 2 minutes  0.0.0.0:3001->3001/tcp             notification-service
 3b6b1c34e23a   payment-service                 "docker-entrypoint.s…"   2 minutes ago  Up 2 minutes  0.0.0.0:3000->3000/tcp             payment-service
 89b1a23b9f83   rabbitmq:3-management           "docker-entrypoint.s…"   2 minutes ago  Up 2 minutes  0.0.0.0:15672->15672/tcp, 5672/tcp rabbitmq
 77f34e9f23d3   postgres                        "docker-entrypoint.s…"   2 minutes ago  Up 2 minutes  0.0.0.0:5432->5432/tcp             postgres
-
-
-Aqui está uma versão aprimorada do texto:
+```
 
 ---
 
@@ -83,7 +82,6 @@ As credenciais padrão são:
 Usuário: guest
 Senha: guest
 
-
 ### 7. Acessando o Banco de Dados
 O PostgreSQL pode ser acessado diretamente para consultar ou manipular dados. Para isso, você pode utilizar o comando docker exec:
 
@@ -97,4 +95,3 @@ SELECT * FROM notification;
 Para parar e remover os contêineres, basta executar o seguinte comando:
 
 docker-compose down
-
